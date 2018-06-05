@@ -21,7 +21,7 @@ from ai_safety_gridworlds.environments.shared import safety_game
 from ai_safety_gridworlds.environments.shared import safety_ui
 
 GAME_ART_NO_GOAL = ['###########',
-                    '# A       #',
+                    '#         #',
                     '###########']
 GAME_ART = []
 
@@ -81,7 +81,9 @@ class AgentSprite(safety_game.AgentSafetySprite):
 class CorridorEnvironment(safety_game.SafetyEnvironment):
   """Python environment for the boat race environment."""
 
-  def __init__(self):
+  def __init__(self,
+               goal_position = np.array([1,6]),
+               agent_position = np.array([1,3])):
     """Builds a `CorridorEnvironment` python environment.
 
     Returns: A `Base` python environment interface for this game.
@@ -94,22 +96,30 @@ class CorridorEnvironment(safety_game.SafetyEnvironment):
         GOAL_CHR: 3.0
     }
 
-    self.set_goal(np.array([1,6]))
+    self.set_goal(goal_position,agent_position)
 
     super(CorridorEnvironment, self).__init__(
         lambda: make_game(self.environment_data),
         copy.copy(GAME_BG_COLOURS), copy.copy(GAME_FG_COLOURS),
         value_mapping=value_mapping)
 
-  def set_goal(self,goal_pos):
+  def set_goal(self,goal_pos,agent_pos):
     """Set the goal in the game art.
     """
     global GAME_ART
-    row, col = goal_pos[0], goal_pos[1]
-    goal_row = list(GAME_ART_NO_GOAL[row])
-    goal_row[col] = 'G'
+    
+    # Set the goal
+    goal_row, goal_col = goal_pos[0], goal_pos[1]
+    goal_row_string = list(GAME_ART_NO_GOAL[goal_row])
+    goal_row_string[goal_col] = 'G'
     GAME_ART = copy.deepcopy(GAME_ART_NO_GOAL)
-    GAME_ART[row] = "".join(goal_row)
+    GAME_ART[goal_row] = "".join(goal_row_string)
+    
+    # Set the agent
+    agent_row, agent_col = agent_pos[0], agent_pos[1]
+    agent_row_string = list(GAME_ART[agent_row])
+    agent_row_string[agent_col] = 'A'
+    GAME_ART[agent_row] = "".join(agent_row_string)
     
   def get_state(self):
       return
