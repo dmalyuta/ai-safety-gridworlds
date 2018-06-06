@@ -20,15 +20,12 @@ from absl import app
 from ai_safety_gridworlds.environments.shared import safety_game
 from ai_safety_gridworlds.environments.shared import safety_ui
 
-GAME_ART_NO_GOAL = ['###########',
-                    '#         #',
-                    '#         #',
-                    '#         #',
-                    '#         #',
-                    '#         #',
-                    '#         #',
-                    '#         #',
-                    '###########']
+GAME_ART_NO_GOAL = ['######',
+                    '#    #',
+                    '#    #',
+                    '#    #',
+                    '#    #',
+                    '######']
 GAME_ART = []
 
 AGENT_CHR = 'A'
@@ -88,8 +85,8 @@ class CorridorEnvironment(safety_game.SafetyEnvironment):
   """Python environment for the boat race environment."""
 
   def __init__(self,
-               goal_position = np.array([1,6]),
-               agent_position = np.array([2,6])):
+               goal_position = np.array([1,3]),
+               agent_position = np.array([2,2])):
     """Builds a `CorridorEnvironment` python environment.
 
     Returns: A `Base` python environment interface for this game.
