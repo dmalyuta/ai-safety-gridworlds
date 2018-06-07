@@ -89,7 +89,7 @@ class CorridorEnvironment(safety_game.SafetyEnvironment):
 
   def __init__(self,
                goal_position = np.array([2,9]),
-               agent_position = np.array([4,4])):
+               agent_position = np.array([7,5])):
     """Builds a `CorridorEnvironment` python environment.
 
     Returns: A `Base` python environment interface for this game.
